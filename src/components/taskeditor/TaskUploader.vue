@@ -28,7 +28,7 @@ import { useElementStore, useErrorStore } from "@/stores";
 import EnterTextDialog from "@/components/dialogs/EnterTextDialog.vue";
 
 import JSZip from "jszip";
-import { ref, computed, reactive, defineExpose } from "vue";
+import { ref, computed, reactive } from "vue";
 import { storeToRefs } from "pinia";
 
 const elementStore = useElementStore();

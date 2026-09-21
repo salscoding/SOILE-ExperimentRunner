@@ -76,7 +76,7 @@
 import Checkbox from "primevue/checkbox";
 import InputText from "primevue/inputtext";
 import TextArea from "primevue/textarea";
-import DropDown from "primevue/dropdown";
+import DropDown from "primevue/select";
 
 import { mapState } from "pinia";
 

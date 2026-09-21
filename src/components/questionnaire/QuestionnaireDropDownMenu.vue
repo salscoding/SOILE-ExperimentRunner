@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Dropdown from "primevue/dropdown";
+import Dropdown from "primevue/select";
 
 export default {
   props: {

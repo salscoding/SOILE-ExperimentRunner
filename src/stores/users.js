@@ -6,8 +6,7 @@ import { useErrorStore } from "./errors";
 
 import axios from "axios";
 
-export const useUserStore = defineStore({
-  id: "user",
+export const useUserStore = defineStore("user", {
   state: () => ({
     // initialize state from session storage to enable user to stay logged in for the session (not using local store)
     users: [],

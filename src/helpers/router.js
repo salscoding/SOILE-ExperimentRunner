@@ -14,7 +14,6 @@ import {
   ResetPasswordView,
 } from "@/views";
 import { useProjectStore } from "@/stores";
-import i18n from "../i18n";
 
 const routes = [
   {

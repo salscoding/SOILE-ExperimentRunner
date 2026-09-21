@@ -11,8 +11,7 @@ import { useStudyStore } from "./studies";
 
 import { useErrorStore } from "./errors";
 
-export const useAuthStore = defineStore({
-  id: "auth",
+export const useAuthStore = defineStore("auth", {
   state: () => ({
     // initialize state from session storage to enable user to stay logged in for the session (not using local store)
     user: JSON.parse(sessionStorage.getItem("soile-user")),

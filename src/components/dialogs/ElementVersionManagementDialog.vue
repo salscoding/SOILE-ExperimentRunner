@@ -1,24 +1,30 @@
 <template>
   <Dialog v-model:visible="dialogVisible" header="Version Management" modal>
-    <TabView>
-      <TabPanel header="Remove Versions">
-        <VersionManager
-          :UUID="UUID"
-          :type="type"
-          :elementVersionList="elementVersionList"
-          @refreshData="updateData"
-        ></VersionManager>
-      </TabPanel>
-      <TabPanel header="Recover Versions">
-        <VersionManager
-          :UUID="UUID"
-          :type="type"
-          :removeVersions="false"
-          :elementVersionList="elementVersionList"
-          @refreshData="updateData"
-        ></VersionManager>
-      </TabPanel>
-    </TabView>
+    <Tabs value="remove">
+      <TabList>
+        <Tab value="remove">Remove Versions</Tab>
+        <Tab value="recover">Recover Versions</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel value="remove">
+          <VersionManager
+            :UUID="UUID"
+            :type="type"
+            :elementVersionList="elementVersionList"
+            @refreshData="updateData"
+          ></VersionManager>
+        </TabPanel>
+        <TabPanel value="recover">
+          <VersionManager
+            :UUID="UUID"
+            :type="type"
+            :removeVersions="false"
+            :elementVersionList="elementVersionList"
+            @refreshData="updateData"
+          ></VersionManager>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
     <template #footer>
       <Button
         label="Close"
@@ -34,7 +40,10 @@
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import VersionManager from "@/components/utils/VersionManager.vue";
-import TabView from "primevue/tabview";
+import Tabs from "primevue/tabs";
+import TabList from "primevue/tablist";
+import Tab from "primevue/tab";
+import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
 import { useElementStore } from "@/stores";
 
@@ -44,8 +53,11 @@ export default {
     Dialog,
     Button,
     VersionManager,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
     TabPanel,
-    TabView,
   },
   emits: ["update:isVisible"],
   props: {
@@ -75,7 +87,7 @@ export default {
     async updateData() {
       this.elementVersionList = await this.elementStore.getOptionsForElement(
         this.UUID,
-        this.type
+        this.type,
       );
     },
   },

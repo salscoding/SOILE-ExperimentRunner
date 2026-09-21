@@ -3,7 +3,7 @@
  */
 export interface FilterFunction {
   name: string;
-  getSymbol(): string;
+  symbol: string;
   isArgCountAllowed(argcount: number): boolean;
 }
 
@@ -63,7 +63,7 @@ const APPROX = {
   },
 };
 
-export const FilterFunctions = [
+export const FilterFunctions: FilterFunction[] = [
   EXPONENT,
   SQUAREROOT,
   MEDIAN,

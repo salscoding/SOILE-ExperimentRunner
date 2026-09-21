@@ -27,7 +27,7 @@
 
 <script>
 import Button from "primevue/button";
-import DropDown from "primevue/dropdown";
+import DropDown from "primevue/select";
 import { useElementStore } from "@/stores/elements";
 import { storeToRefs } from "pinia";
 export default {

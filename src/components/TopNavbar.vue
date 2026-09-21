@@ -34,7 +34,7 @@
 import Menubar from "primevue/menubar";
 import Menu from "primevue/menu";
 import Dialog from "primevue/dialog";
-import DropDown from "primevue/dropdown";
+import DropDown from "primevue/select";
 
 import { computed, ref } from "vue";
 import { mapState } from "pinia";

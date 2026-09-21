@@ -1,96 +1,158 @@
 <template>
-  <TabView class="pb-0" v-model:activeIndex="activeElement">
-    <TabPanel
-      v-if="editorStore.experiments.elements.length > 0"
-      header="Experiments"
-    >
-      <TabView
-        class="pb-0"
-        v-model:activeIndex="editorStore.experiments.active"
+  <Tabs class="pb-0" v-model:value="activeElement">
+    <TabList>
+      <Tab v-if="editorStore.experiments.elements.length > 0" :value="0">
+        Experiments
+      </Tab>
+      <Tab
+        v-if="editorStore.tasks.elements.length > 0"
+        :value="editorStore.experiments.elements.length > 0 ? 1 : 0"
       >
-        <TabPanel
-          v-for="(experiment, index) in editorStore.experiments.elements"
-        >
-          <template #header>
-            <span> {{ experiment.name }} </span>
-            <Button
-              icon="pi pi-times"
-              @click="closeTab(index, editorStore.experiments, 'experiment')"
-            />
-          </template>
-          <div style="width: 100%; height: 80vh">
-            <Editor
-              type="experiment"
-              :newElement="experiment.newElement"
-              :baklava="experiment.editor"
-              :data="experiment.data"
-              :name="experiment.name"
-              @updateElement="
-                (data) => updateElement(data, index, 'experiment')
-              "
-              @createElement="
-                (data) => updateElement(data, index, 'experiment')
-              "
-              @updateName="(name) => updateName(name, index, 'experiment')"
-            ></Editor>
-          </div>
-        </TabPanel>
-      </TabView>
-    </TabPanel>
-    <TabPanel v-if="editorStore.tasks.elements.length > 0" header="Tasks">
-      <TabView class="pb-0" v-model:activeIndex="editorStore.tasks.active">
-        <TabPanel v-for="(task, index) in editorStore.tasks.elements">
-          <template #header>
-            <span> {{ task.name }} </span>
-            <Button
-              icon="pi pi-times"
-              @click="closeTab(index, editorStore.tasks, 'task')"
-            />
-          </template>
-          <div style="width: 100%; height: 80vh">
-            <TaskEditor
-              :newElement="task.newElement"
-              :target="task.data"
-              @updateName="(name) => updateName(name, index, 'task')"
-              @updateCurrentVersion="
-                (event) => updateCurrentTaskVersion(event, index, 'task')
-              "
-              @saveTask="(event) => updateElement(event, index, 'task')"
-              @changeTask="(event) => changeElement(event, index, 'task')"
-            ></TaskEditor>
-          </div>
-        </TabPanel>
-      </TabView>
-      <!-- Content for the Tasks tab goes here -->
-    </TabPanel>
-    <TabPanel v-if="editorStore.projects.elements.length > 0" header="Projects">
-      <TabView class="pb-0" v-model:activeIndex="editorStore.projects.active">
-        <TabPanel v-for="(project, index) in editorStore.projects.elements">
-          <template #header>
-            <span> {{ project.name }} </span>
-            <Button
-              icon="pi pi-times"
-              @click="closeTab(index, editorStore.projects, 'project')"
-            />
-          </template>
-          <div style="width: 100%; height: 80vh">
-            <Editor
-              type="project"
-              :newElement="project.newElement"
-              :baklava="project.editor"
-              :data="project.data"
-              :name="project.name"
-              @updateElement="(data) => updateElement(data, index, 'project')"
-              @createElement="(data) => updateElement(data, index, 'project')"
-              @updateName="(name) => updateName(name, index, 'project')"
-            ></Editor>
-          </div>
-          <!-- Content for Sub-Tab 1 goes here -->
-        </TabPanel>
-      </TabView>
-      <!-- Content for the Projects tab goes here -->
-    </TabPanel>
-  </TabView>
+        Tasks
+      </Tab>
+      <Tab
+        v-if="editorStore.projects.elements.length > 0"
+        :value="
+          (editorStore.experiments.elements.length > 0 ? 1 : 0) +
+          (editorStore.tasks.elements.length > 0 ? 1 : 0)
+        "
+      >
+        Projects
+      </Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel v-if="editorStore.experiments.elements.length > 0" :value="0">
+        <Tabs class="pb-0" v-model:value="editorStore.experiments.active">
+          <TabList>
+            <Tab
+              v-for="(experiment, index) in editorStore.experiments.elements"
+              :key="experiment.data?.UUID || index"
+              :value="index"
+            >
+              <span> {{ experiment.name }} </span>
+              <Button
+                icon="pi pi-times"
+                @click.stop="
+                  closeTab(index, editorStore.experiments, 'experiment')
+                "
+              />
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel
+              v-for="(experiment, index) in editorStore.experiments.elements"
+              :key="experiment.data?.UUID || index"
+              :value="index"
+            >
+              <div style="width: 100%; height: 80vh">
+                <Editor
+                  type="experiment"
+                  :newElement="experiment.newElement"
+                  :baklava="experiment.editor"
+                  :data="experiment.data"
+                  :name="experiment.name"
+                  @updateElement="
+                    (data) => updateElement(data, index, 'experiment')
+                  "
+                  @createElement="
+                    (data) => updateElement(data, index, 'experiment')
+                  "
+                  @updateName="(name) => updateName(name, index, 'experiment')"
+                ></Editor>
+              </div>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </TabPanel>
+      <TabPanel
+        v-if="editorStore.tasks.elements.length > 0"
+        :value="editorStore.experiments.elements.length > 0 ? 1 : 0"
+      >
+        <Tabs class="pb-0" v-model:value="editorStore.tasks.active">
+          <TabList>
+            <Tab
+              v-for="(task, index) in editorStore.tasks.elements"
+              :key="task.data?.UUID || index"
+              :value="index"
+            >
+              <span> {{ task.name }} </span>
+              <Button
+                icon="pi pi-times"
+                @click.stop="closeTab(index, editorStore.tasks, 'task')"
+              />
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel
+              v-for="(task, index) in editorStore.tasks.elements"
+              :key="task.data?.UUID || index"
+              :value="index"
+            >
+              <div style="width: 100%; height: 80vh">
+                <TaskEditor
+                  :newElement="task.newElement"
+                  :target="task.data"
+                  @updateName="(name) => updateName(name, index, 'task')"
+                  @updateCurrentVersion="
+                    (event) => updateCurrentTaskVersion(event, index, 'task')
+                  "
+                  @saveTask="(event) => updateElement(event, index, 'task')"
+                  @changeTask="(event) => changeElement(event, index, 'task')"
+                ></TaskEditor>
+              </div>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </TabPanel>
+      <TabPanel
+        v-if="editorStore.projects.elements.length > 0"
+        :value="
+          (editorStore.experiments.elements.length > 0 ? 1 : 0) +
+          (editorStore.tasks.elements.length > 0 ? 1 : 0)
+        "
+      >
+        <Tabs class="pb-0" v-model:value="editorStore.projects.active">
+          <TabList>
+            <Tab
+              v-for="(project, index) in editorStore.projects.elements"
+              :key="project.data?.UUID || index"
+              :value="index"
+            >
+              <span> {{ project.name }} </span>
+              <Button
+                icon="pi pi-times"
+                @click.stop="closeTab(index, editorStore.projects, 'project')"
+              />
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel
+              v-for="(project, index) in editorStore.projects.elements"
+              :key="project.data?.UUID || index"
+              :value="index"
+            >
+              <div style="width: 100%; height: 80vh">
+                <Editor
+                  type="project"
+                  :newElement="project.newElement"
+                  :baklava="project.editor"
+                  :data="project.data"
+                  :name="project.name"
+                  @updateElement="
+                    (data) => updateElement(data, index, 'project')
+                  "
+                  @createElement="
+                    (data) => updateElement(data, index, 'project')
+                  "
+                  @updateName="(name) => updateName(name, index, 'project')"
+                ></Editor>
+              </div>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </TabPanel>
+    </TabPanels>
+  </Tabs>
   <ConfirmDialog
     :target="currentTarget"
     message="Are you sure you want to close this? All unsaved changes will be lost"
@@ -106,7 +168,10 @@
  * different types of editable parts of projects/experiments/tasks
  * It contains
  */
-import TabView from "primevue/tabview";
+import Tabs from "primevue/tabs";
+import TabList from "primevue/tablist";
+import Tab from "primevue/tab";
+import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
 import Button from "primevue/button";
 
@@ -192,7 +257,7 @@ function handleTaskChange(event) {
         currentTask.data.UUID +
         "/" +
         currentTask.currentVersion +
-        "/"
+        "/",
     );
   } else {
     router.push("/editing");
@@ -245,7 +310,7 @@ function updateCurrentTaskVersion(version, index) {
  */
 async function updateElement(data, index, type) {
   console.log(
-    "Changing object at position " + index + " for type " + type + " to:"
+    "Changing object at position " + index + " for type " + type + " to:",
   );
   console.log(data);
   await editorStore.saveObject(type, data, index);
@@ -262,7 +327,7 @@ async function changeElement(newObjectInfo, index, type) {
     type,
     newObjectInfo.UUID,
     newObjectInfo.version,
-    index
+    index,
   );
 }
 
@@ -275,7 +340,7 @@ async function changeElement(newObjectInfo, index, type) {
  */
 function updateName(name, index, type) {
   console.log(
-    "Updating name for index " + index + " for type " + type + " to " + name
+    "Updating name for index " + index + " for type " + type + " to " + name,
   );
   const elementStore = editorStore.getStoreForType(type);
   elementStore.elements[index].name = name;

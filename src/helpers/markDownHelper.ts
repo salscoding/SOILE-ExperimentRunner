@@ -1,13 +1,11 @@
 import { Marked, Renderer } from "marked";
 import DOMPurify from "dompurify";
 
-var renderer = new Renderer();
+const renderer = new Renderer();
 
-renderer.link = (href, title, text) => {
+renderer.link = ({ href, title, text }) => {
   // Customize how you want links to be rendered
-  return `<a href="${href}" target="reference" title="${
-    title || ""
-  }" target="reference">${text}</a>`;
+  return `<a href="${href}" title="${title || ""}" target="reference">${text}</a>`;
 };
 const marked = new Marked();
 marked.use({ renderer });

@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { checkOutput } from "@/helpers/projecteditor/taskProcessor";
-import Dropdown from "primevue/dropdown";
+import Dropdown from "primevue/select";
 import { defineComponent } from "vue";
 
 export default defineComponent({

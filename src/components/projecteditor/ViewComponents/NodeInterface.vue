@@ -21,17 +21,9 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  inject,
-  onMounted,
-  onUpdated,
-  Ref,
-  ref,
-} from "vue";
+import { computed, defineComponent, onMounted, onUpdated, Ref, ref } from "vue";
 import { AbstractNode, NodeInterface } from "@baklavajs/core";
-import { useViewModel } from "@baklavajs/renderer-vue";
+import { useTemporaryConnection, useViewModel } from "@baklavajs/renderer-vue";
 
 export default defineComponent({
   props: {
@@ -46,8 +38,7 @@ export default defineComponent({
   },
   setup(props) {
     const { viewModel } = useViewModel();
-    const hoveredOver =
-      inject<(intf: NodeInterface | undefined) => void>("hoveredOver")!;
+    const { hoveredOver } = useTemporaryConnection();
 
     const el = ref<HTMLElement | null>(null) as Ref<HTMLElement>;
 
@@ -61,7 +52,7 @@ export default defineComponent({
       () =>
         props.intf.component &&
         props.intf.connectionCount === 0 &&
-        (props.intf.isInput || !props.intf.port)
+        (props.intf.isInput || !props.intf.port),
     );
 
     const startHover = () => {

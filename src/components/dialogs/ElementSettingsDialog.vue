@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import Dropdown from "primevue/dropdown";
+import Dropdown from "primevue/select";
 import InputText from "primevue/inputtext";
 import Checkbox from "primevue/checkbox";
 import Dialog from "primevue/dialog";

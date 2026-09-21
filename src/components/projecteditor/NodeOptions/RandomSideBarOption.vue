@@ -62,7 +62,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import HelpItem from "@/components/helppages/HelpItem.vue";
-import DropDown from "primevue/dropdown";
+import DropDown from "primevue/select";
 import Checkbox from "primevue/checkbox";
 import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";

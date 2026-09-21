@@ -9,10 +9,8 @@ import { router } from "./helpers/router";
 
 // import primevue styles and package
 import PrimeVue from "primevue/config";
-//theme
-import "primevue/resources/themes/lara-light-indigo/theme.css";
-//core
-import "primevue/resources/primevue.min.css";
+import { definePreset } from "@primeuix/themes";
+import Aura from "@primeuix/themes/aura";
 import "primeicons/primeicons.css";
 import ToastService from "primevue/toastservice";
 import Tooltip from "primevue/tooltip";
@@ -26,6 +24,25 @@ import "@/assets/globalStyles.css";
 // localisation support
 import i18n from "./i18n";
 
+// Keep the upgraded Aura theme aligned with the previous Lara Light Indigo UI.
+const SoilePreset = definePreset(Aura, {
+  semantic: {
+    primary: {
+      50: "{indigo.50}",
+      100: "{indigo.100}",
+      200: "{indigo.200}",
+      300: "{indigo.300}",
+      400: "{indigo.400}",
+      500: "{indigo.500}",
+      600: "{indigo.600}",
+      700: "{indigo.700}",
+      800: "{indigo.800}",
+      900: "{indigo.900}",
+      950: "{indigo.950}",
+    },
+  },
+});
+
 // set up axios URLs
 setupAxios(import.meta.env);
 
@@ -35,7 +52,14 @@ app
   .use(i18n)
   .directive("tooltip", Tooltip)
   .use(createPinia())
-  .use(PrimeVue)
+  .use(PrimeVue, {
+    theme: {
+      preset: SoilePreset,
+      options: {
+        darkModeSelector: false,
+      },
+    },
+  })
   .use(ToastService)
   .use(router)
   .mount("#app");

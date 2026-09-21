@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { getReasonPhrase } from "http-status-codes";
-export const useErrorStore = defineStore({
-  id: "errors",
+export const useErrorStore = defineStore("errors", {
   state: () => ({
     // initialize state from local storage to enable user to stay logged in
     errors: [],

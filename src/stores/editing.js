@@ -44,8 +44,7 @@ const defaultData = {
   },
 };
 
-export const useEditorStore = defineStore({
-  id: "editing",
+export const useEditorStore = defineStore("editing", {
   state: () => ({
     // initialize the state. We don't update from the local storage, because this could contain privilegded data
     experiments: { active: 0, elements: [], id: "experiment" },

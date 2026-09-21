@@ -15,8 +15,7 @@ type Element = {
   version: String;
 };
 
-export const useGraphStore = defineStore({
-  id: "graphs",
+export const useGraphStore = defineStore("graphs", {
   state: () => ({
     // initialize the state. We don't update from the local storage, because this could contain privilegded data
     nodePersistentInformation: new Map<string, Map<string, string[]>>(),

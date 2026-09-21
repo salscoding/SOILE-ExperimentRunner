@@ -4,9 +4,7 @@
     ref="JSWindow"
     allowfullscreen
     :srcdoc="code"
-  >
-    <div id="root"></div>
-  </iframe>
+  ></iframe>
 </template>
 
 <script>

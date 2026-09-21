@@ -3,8 +3,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useErrorStore } from "./errors";
 
-export const useProjectStore = defineStore({
-  id: "projects",
+export const useProjectStore = defineStore("projects", {
   state: () => ({
     // initialize the state. We don't update from the local storage, because this could contain privilegded data
     signedUpStudies: [],

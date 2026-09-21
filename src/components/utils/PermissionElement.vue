@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import DropDown from "primevue/dropdown";
+import DropDown from "primevue/select";
 export default {
   props: {
     permissionOptions: {

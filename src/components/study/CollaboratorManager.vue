@@ -17,9 +17,6 @@
 </template>
 
 <script>
-import Dialog from "primevue/dialog";
-import TabView from "primevue/tabview";
-import TabPanel from "primevue/tabpanel";
 import ProgressSpinner from "primevue/progressspinner";
 
 import { useAuthStore } from "@/stores";
@@ -43,7 +40,6 @@ export default {
     },
   },
   components: {
-    Dialog,
     PermissionSelector,
     ProgressSpinner,
   },

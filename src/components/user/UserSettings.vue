@@ -3,11 +3,19 @@
     <h1>{{ title }}</h1>
     <form @submit.prevent="saveSettings">
       <div class="grid">
-        <div v-tooltip="'Username must not contain @'" class="col flex align-items-center">
+        <div
+          v-tooltip="'Username must not contain @'"
+          class="col flex align-items-center"
+        >
           <label for="username">Username</label>
         </div>
         <div class="col flex align-items-center">
-          <InputText id="username" v-model="settings.username" :disabled="usernamefixed" :invalid="!userNameValid" />
+          <InputText
+            id="username"
+            v-model="settings.username"
+            :disabled="usernamefixed"
+            :invalid="!userNameValid"
+          />
         </div>
       </div>
       <div class="grid">
@@ -15,15 +23,27 @@
           <label for="email">Email</label>
         </div>
         <div class="col flex align-items-center">
-          <InputText type="email" id="email" v-model="settings.email" :invalid="!emailPossible" />
+          <InputText
+            type="email"
+            id="email"
+            v-model="settings.email"
+            :invalid="!emailPossible"
+          />
         </div>
       </div>
       <div class="grid">
-        <div v-tooltip="'Must include both a first and a last name'" class="col flex align-items-center">
+        <div
+          v-tooltip="'Must include both a first and a last name'"
+          class="col flex align-items-center"
+        >
           <label for="fullname">Full Name</label>
         </div>
         <div class="col flex align-items-center">
-          <InputText id="fullname" v-model="settings.fullname" invalid="!namePossible" />
+          <InputText
+            id="fullname"
+            v-model="settings.fullname"
+            :invalid="!namePossible"
+          />
         </div>
       </div>
       <div v-if="settings.role != null && settings.role != ''" class="grid">
@@ -122,7 +142,7 @@ export default {
       ) {
         this.errorStore.raiseError(
           "error",
-          "Passwords must match and must have a length of at least 10"
+          "Passwords must match and must have a length of at least 10",
         );
       } else {
         this.$emit("updateUser", this.settings);
@@ -149,7 +169,9 @@ export default {
     },
     namePossible() {
       return (
-        this.settings.fullname && this.settings.fullname.trim().length > 0 && !this.settings.fullname.includes(" ")
+        this.settings.fullname &&
+        this.settings.fullname.trim().length > 0 &&
+        !this.settings.fullname.includes(" ")
       );
     },
     passwordValid() {
@@ -161,7 +183,12 @@ export default {
       );
     },
     inputValid() {
-      return this.userNameValid && this.passwordValid && this.emailPossible && this.namePossible;
+      return (
+        this.userNameValid &&
+        this.passwordValid &&
+        this.emailPossible &&
+        this.namePossible
+      );
     },
   },
   watch: {

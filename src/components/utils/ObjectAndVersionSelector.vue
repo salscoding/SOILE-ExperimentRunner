@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Dropdown from "primevue/dropdown";
+import Dropdown from "primevue/select";
 import { useElementStore } from "../../stores";
 
 export default {

@@ -28,7 +28,7 @@
 <script>
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
-import Dropdown from "primevue/dropdown";
+import Dropdown from "primevue/select";
 import ObjectAndVersionSelector from "@/components/utils/ObjectAndVersionSelector.vue";
 import StudyProperties from "./StudyProperties.vue";
 import { useStudyStore } from "@/stores";

@@ -1,50 +1,61 @@
 <template>
   <Dialog v-model:visible="dialogVisible" header="User Details" modal>
     <ProgressSpinner v-if="loading"></ProgressSpinner>
-    <TabView v-else>
-      <TabPanel header="Tasks">
-        <PermissionSelector
-          :currentPermissions="currentPermissions?.permissions?.tasks"
-          :availablePermissions="availablePermissions"
-          :availableElements="availableTasks"
-          @savePermissions="(event) => savePermissions(event, 'TASK')"
-        >
-        </PermissionSelector>
-      </TabPanel>
-      <TabPanel header="Experiments">
-        <PermissionSelector
-          :currentPermissions="currentPermissions?.permissions?.experiments"
-          :availablePermissions="availablePermissions"
-          :availableElements="availableExperiments"
-          @savePermissions="(event) => savePermissions(event, 'EXPERIMENT')"
-        >
-        </PermissionSelector>
-      </TabPanel>
-      <TabPanel header="Projects">
-        <PermissionSelector
-          :currentPermissions="currentPermissions?.permissions?.projects"
-          :availablePermissions="availablePermissions"
-          :availableElements="availableProjects"
-          @savePermissions="(event) => savePermissions(event, 'PROJECT')"
-        >
-        </PermissionSelector>
-      </TabPanel>
-      <TabPanel header="Studies">
-        <PermissionSelector
-          :currentPermissions="currentPermissions?.permissions?.instances"
-          :availablePermissions="availablePermissions"
-          :availableElements="availableStudies"
-          @savePermissions="(event) => savePermissions(event, 'STUDY')"
-        >
-        </PermissionSelector>
-      </TabPanel>
-    </TabView>
+    <Tabs v-else value="tasks">
+      <TabList>
+        <Tab value="tasks">Tasks</Tab>
+        <Tab value="experiments">Experiments</Tab>
+        <Tab value="projects">Projects</Tab>
+        <Tab value="studies">Studies</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel value="tasks">
+          <PermissionSelector
+            :currentPermissions="currentPermissions?.permissions?.tasks"
+            :availablePermissions="availablePermissions"
+            :availableElements="availableTasks"
+            @savePermissions="(event) => savePermissions(event, 'TASK')"
+          >
+          </PermissionSelector>
+        </TabPanel>
+        <TabPanel value="experiments">
+          <PermissionSelector
+            :currentPermissions="currentPermissions?.permissions?.experiments"
+            :availablePermissions="availablePermissions"
+            :availableElements="availableExperiments"
+            @savePermissions="(event) => savePermissions(event, 'EXPERIMENT')"
+          >
+          </PermissionSelector>
+        </TabPanel>
+        <TabPanel value="projects">
+          <PermissionSelector
+            :currentPermissions="currentPermissions?.permissions?.projects"
+            :availablePermissions="availablePermissions"
+            :availableElements="availableProjects"
+            @savePermissions="(event) => savePermissions(event, 'PROJECT')"
+          >
+          </PermissionSelector>
+        </TabPanel>
+        <TabPanel value="studies">
+          <PermissionSelector
+            :currentPermissions="currentPermissions?.permissions?.instances"
+            :availablePermissions="availablePermissions"
+            :availableElements="availableStudies"
+            @savePermissions="(event) => savePermissions(event, 'STUDY')"
+          >
+          </PermissionSelector>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
   </Dialog>
 </template>
 
 <script>
 import Dialog from "primevue/dialog";
-import TabView from "primevue/tabview";
+import Tabs from "primevue/tabs";
+import TabList from "primevue/tablist";
+import Tab from "primevue/tab";
+import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
 import ProgressSpinner from "primevue/progressspinner";
 
@@ -67,7 +78,10 @@ export default {
   components: {
     Dialog,
     PermissionSelector,
-    TabView,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
     TabPanel,
     ProgressSpinner,
   },
@@ -104,7 +118,7 @@ export default {
           permissions.map((x) => {
             return { type: x.permission, target: x.id };
           }),
-          type
+          type,
         );
       }
     },

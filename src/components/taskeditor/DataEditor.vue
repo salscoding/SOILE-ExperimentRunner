@@ -1,8 +1,8 @@
 <template>
   <div>
-    <TabView v-model:activeIndex="activeIndex">
-      <TabPanel>
-        <template #header>
+    <Tabs v-model:value="activeIndex">
+      <TabList>
+        <Tab :value="0">
           <span> Source Code </span>
           <Button
             size="small"
@@ -13,44 +13,59 @@
               sourceChanged = false;
             "
           />
-        </template>
-        <CodeEditor
-          :inputText="sourceCode"
-          :inputLanguage="sourceLanguage"
-          @update:inputText="
-            $emit('update:sourceCode', $event);
-            sourceChanged = true;
-          "
-        />
-      </TabPanel>
-      <TabPanel v-for="(tab, index) in tabs" :key="index">
-        <template #header>
-          <span v-tooltip="tab.fullpath">
-            {{ tab.filename }}
+        </Tab>
+        <Tab
+          v-for="(fileTab, index) in tabs"
+          :key="fileTab.fullpath || index"
+          :value="index + 1"
+        >
+          <span v-tooltip="fileTab.fullpath">
+            {{ fileTab.filename }}
           </span>
           <Button
             size="small"
             icon="pi pi-times"
-            @click="$emit('closeFile', tab)"
+            @click.stop="$emit('closeFile', fileTab)"
           />
           <Button
             size="small"
-            :disabled="!tab.modified"
+            :disabled="!fileTab.modified"
             icon="pi pi-save"
-            @click="$emit('saveFile', tab)"
+            @click.stop="$emit('saveFile', fileTab)"
           />
-        </template>
-        <CodeEditor
-          :inputText="tab.data"
-          @update:inputText="$emit('updateData', { index, value: $event })"
-        />
-      </TabPanel>
-    </TabView>
+        </Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel :value="0">
+          <CodeEditor
+            :inputText="sourceCode"
+            :inputLanguage="sourceLanguage"
+            @update:inputText="
+              $emit('update:sourceCode', $event);
+              sourceChanged = true;
+            "
+          />
+        </TabPanel>
+        <TabPanel
+          v-for="(fileTab, index) in tabs"
+          :key="fileTab.fullpath || index"
+          :value="index + 1"
+        >
+          <CodeEditor
+            :inputText="fileTab.data"
+            @update:inputText="$emit('updateData', { index, value: $event })"
+          />
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
   </div>
 </template>
 
 <script>
-import TabView from "primevue/tabview";
+import Tabs from "primevue/tabs";
+import TabList from "primevue/tablist";
+import Tab from "primevue/tab";
+import TabPanels from "primevue/tabpanels";
 import TabPanel from "primevue/tabpanel";
 import Button from "primevue/button";
 
@@ -58,7 +73,10 @@ import CodeEditor from "./CodeEditor.vue";
 
 export default {
   components: {
-    TabView,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
     TabPanel,
     CodeEditor,
     Button,

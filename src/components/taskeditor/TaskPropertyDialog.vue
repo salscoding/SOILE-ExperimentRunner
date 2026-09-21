@@ -128,10 +128,10 @@
 <script>
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
-import DropDown from "primevue/dropdown";
+import DropDown from "primevue/select";
 import InputText from "primevue/inputtext";
 import TextArea from "primevue/textarea";
-import Calendar from "primevue/calendar";
+import Calendar from "primevue/datepicker";
 
 import { storeToRefs } from "pinia";
 

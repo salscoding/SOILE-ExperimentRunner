@@ -61,14 +61,12 @@ import EnterTextDialog from "@/components/dialogs/EnterTextDialog.vue";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 
 import { useElementStore } from "@/stores";
-import { FilterMatchMode } from "primevue/api";
+import { FilterMatchMode } from "@primevue/core/api";
 import {
   ref,
   computed,
   reactive,
-  defineProps,
   onMounted,
-  defineEmits,
 } from "vue";
 
 const props = defineProps({

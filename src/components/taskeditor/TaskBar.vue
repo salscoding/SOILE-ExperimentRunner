@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import Dropdown from "primevue/dropdown";
+import Dropdown from "primevue/select";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import ObjectAndVersionSelectorWithProps from "@/components/utils/ObjectAndVersionSelectorWithProps.vue";

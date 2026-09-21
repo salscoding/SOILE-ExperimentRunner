@@ -88,7 +88,7 @@ import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import InputNumber from "primevue/inputnumber";
 import ScrollPanel from "primevue/scrollpanel";
-import { ref, defineEmits, computed } from "vue";
+import { ref, computed } from "vue";
 const props = defineProps({
   active: {
     type: Boolean,

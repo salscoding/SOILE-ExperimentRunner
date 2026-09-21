@@ -16,47 +16,49 @@
 </template>
 
 <script>
-import { useProjectStore } from '@/stores/project'
-import { mapState } from 'pinia'
-import Button from 'primevue/button'
-import Dialog from 'primevue/dialog'
-import StudyCreationDialog from '@/components/study/StudyCreationDialog.vue'
-import StudyEditor from '@/components/study/StudyEditor.vue'
+import { useProjectStore } from "@/stores/project";
+import { mapState } from "pinia";
+import Button from "primevue/button";
+import StudyCreationDialog from "@/components/study/StudyCreationDialog.vue";
+import StudyLoadDialog from "@/components/study/StudyLoadDialog.vue";
 
 export default {
-    name: "StudyManagementView",
-    computed: {
-      ...mapState(useProjectStore, ['researchStudies', 'editableStudies']),
-    },
-    emits: ['studySelected']
-    components: { Button, Dialog, StudyCreationDialog },
-    mounted(){
-        this.projectStore.updateEditableStudies();
-        this.projectStore.updateResearchStudies();
-    },
-    setup()
-    {
-        const projectStore = useProjectStore();
-        return { projectStore }
-    },
-    data()
-    {
-      return {
-        currentStudy: undefined,
-        creationDialogVisible: false,
+  name: "StudyManagementView",
+  computed: {
+    ...mapState(useProjectStore, ["researchStudies", "editableStudies"]),
+  },
+  emits: ["studySelected"],
+  components: { Button, StudyCreationDialog, StudyLoadDialog },
+  mounted() {
+    this.projectStore.updateEditableStudies();
+    this.projectStore.updateResearchStudies();
+  },
+  setup() {
+    const projectStore = useProjectStore();
+    return { projectStore };
+  },
+  data() {
+    return {
+      currentStudy: undefined,
+      creationDialogVisible: false,
+      loadDialogVisible: false,
+    };
+  },
+  methods: {
+    handleCreation(event) {
+      if (event) {
+        this.$emit("studySelected", event);
       }
+      this.creationDialogVisible = false;
     },
-    methods: {
-      handleCreation(event)
-      {
-        if(event)
-        {
-          this.emit('studySelected', event);
-        }
-        this.creationDialogVisible=false;
+    handleLoad(event) {
+      if (event) {
+        this.$emit("studySelected", event);
       }
-    }
-  }
+      this.loadDialogVisible = false;
+    },
+  },
+};
 </script>
 
 <style scoped></style>

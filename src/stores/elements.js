@@ -3,8 +3,7 @@ import axios from "axios";
 import { useErrorStore } from "./errors";
 import { extractQMarkUpOutputOptions } from "@/helpers/projecteditor/taskProcessor";
 import { extractElangOutputOptions } from "../helpers/projecteditor/taskProcessor";
-export const useElementStore = defineStore({
-  id: "elements",
+export const useElementStore = defineStore("elements", {
   state: () => ({
     // initialize the state. We don't update from the local storage, because this could contain privilegded data
     availableTasks: [],

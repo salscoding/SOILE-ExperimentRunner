@@ -3,7 +3,7 @@ import { CheckboxInterface, TextInterface } from "@baklavajs/renderer-vue";
 import { allowMultipleConnections } from "@baklavajs/engine";
 import { v4 as uuidv4 } from "uuid";
 import { SideBarButton, ExperimentSideBarOption } from "../NodeOptions";
-import { markRaw, reactive, ref } from "vue";
+import { markRaw, reactive } from "vue";
 import { displayInSideBar } from "./utilities";
 import OutputListOption from "../NodeOptions/OutputListOption.vue";
 import { ComponentInterface } from "../NodeInterfaces/ComponentInterface";
@@ -19,7 +19,7 @@ export default class ExperimentNode extends SoileVersionedNode {
   public type = "ExperimentNode";
   public objectType = "experiment";
   public random = false;
-  public canRandom = ref(true);
+  public canRandom = true;
   public constructor() {
     super();
     this.myTitle = this.type;
@@ -77,8 +77,7 @@ export default class ExperimentNode extends SoileVersionedNode {
     await super.setElementVersion(version, tag);
     this.canRandom = await this.elementStore.canExperimentBeRandomized(
       this.objectData.UUID,
-      this.objectData.version,
-      "experiment"
+      this.objectData.version
     );
     console.log("Updating outputs");
     this.updateOutputs();

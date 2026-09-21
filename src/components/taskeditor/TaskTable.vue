@@ -128,8 +128,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, defineProps } from "vue";
-import { FilterMatchMode } from "primevue/api";
+import { ref, onMounted, computed } from "vue";
+import { FilterMatchMode } from "@primevue/core/api";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import InputText from "primevue/inputtext";

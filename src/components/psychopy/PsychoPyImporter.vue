@@ -71,7 +71,7 @@
 import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
-import InputSwitch from "primevue/inputswitch";
+import InputSwitch from "primevue/toggleswitch";
 
 import { useElementStore, useEditorStore, useGraphStore } from "@/stores";
 import { storeToRefs } from "pinia";

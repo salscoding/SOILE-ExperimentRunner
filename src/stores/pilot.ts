@@ -1,8 +1,7 @@
 import { Experiment, SOILEProject } from "@/helpers/projecteditor/SoileTypes";
 import { defineStore } from "pinia";
 
-export const usePilotStore = defineStore({
-  id: "pilot",
+export const usePilotStore = defineStore("pilot", {
   state: () => ({
     // initialize the state. We don't update from the local storage, because this could contain privilegded data
     pilotedElement: (sessionStorage.getItem("soile:pilot")

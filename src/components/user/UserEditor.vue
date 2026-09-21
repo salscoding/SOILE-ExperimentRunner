@@ -169,8 +169,8 @@ import DropDownWrapper from "@/components/utils/DropDownWrapper.vue";
 import UserDialog from "@/components/dialogs/UserDialog.vue";
 
 import { useUserStore, useAuthStore } from "@/stores";
-import { FilterMatchMode } from "primevue/api";
-import { ref, computed, reactive, defineProps, watch } from "vue";
+import { FilterMatchMode } from "@primevue/core/api";
+import { ref, computed, reactive, watch } from "vue";
 
 const props = defineProps({
   title: {

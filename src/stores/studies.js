@@ -2,8 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useErrorStore } from "./errors";
 
-export const useStudyStore = defineStore({
-  id: "studies",
+export const useStudyStore = defineStore("studies", {
   state: () => ({
     // initialize the state. We don't update from the local storage, because this could contain privilegded data
     currentEditedStudy: JSON.parse(
