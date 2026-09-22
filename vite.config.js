@@ -1,4 +1,5 @@
 import { defineConfig, loadEnv } from "vite";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "url";
 
@@ -23,8 +24,9 @@ export default ({ mode }) => {
         },
       ],
     },
-    plugins: [vue()],
+    plugins: [vue(), basicSsl()],
     server: {
+      https: true,
       proxy: {
         "^/exp/.*/.*/.+": {
           target: `${SERVER_URL}`,
