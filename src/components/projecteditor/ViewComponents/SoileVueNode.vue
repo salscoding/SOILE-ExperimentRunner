@@ -101,8 +101,8 @@ import {
 import { useDragMove, useGraph, useViewModel } from "@baklavajs/renderer-vue";
 import { Components } from "@baklavajs/renderer-vue";
 import NodeInterface from "./NodeInterface.vue";
+import { getNodeDimensions } from "./nodeDimensions";
 import { useGraphStore } from "@/stores";
-import { ResizeObserverEntry } from "@vueuse/core";
 import SoileNode from "../NodeTypes/SoileNode";
 import HelpItem from "@/components/helppages/HelpItem.vue";
 
@@ -126,6 +126,7 @@ const el = ref<HTMLElement | null>(null);
 const renaming = ref(false);
 const tempName = ref("");
 const renameInputEl = ref<HTMLInputElement | null>(null);
+let resizeObserver: ResizeObserver | undefined;
 const showContextMenu = ref(false);
 const contextMenuItems = computed(() => {
   const items = [
@@ -222,19 +223,26 @@ const onRender = () => {
 };
 
 const handleResize = (event: Array<ResizeObserverEntry>) => {
+  const entry = event[0];
+  if (!entry) return;
+
+  const { width, height } = getNodeDimensions(entry);
   // otherwise this will be overwriting tab-out events, where they are made invisible.
-  if (event[0].contentRect.width > 0 && event[0].contentRect.height > 0) {
-    props.node.position.width = event[0].contentRect.width;
-    props.node.position.height = event[0].contentRect.height;
+  if (width > 0 && height > 0) {
+    props.node.position.width = width;
+    props.node.position.height = height;
   }
 };
 
 onMounted(() => {
-  new ResizeObserver(handleResize).observe(el.value);
+  if (!el.value) return;
+
+  resizeObserver = new ResizeObserver(handleResize);
+  resizeObserver.observe(el.value, { box: "border-box" });
   onRender();
 });
 onBeforeUnmount(() => {
-  el.value.removeEventListener("resize", handleResize);
+  resizeObserver?.disconnect();
 });
 onUpdated(onRender);
 </script>
