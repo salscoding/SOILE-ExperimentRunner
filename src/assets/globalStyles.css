@@ -1,3 +1,35 @@
+.p-fluid .p-inputtext,
+.p-fluid .p-inputtextarea {
+  width: 100%;
+}
+
+.p-fluid .p-password,
+.p-fluid .p-select,
+.p-fluid .p-multiselect,
+.p-fluid .p-treeselect,
+.p-fluid .p-cascadeselect {
+  display: flex;
+}
+
+.p-fluid .p-button {
+  width: 100%;
+}
+
+.p-fluid .p-button-icon-only {
+  width: 3rem;
+}
+
+.p-fluid .p-dialog-footer .p-button,
+.p-fluid .p-fileupload .p-button {
+  width: auto;
+}
+
+.p-datatable .p-datatable-header,
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-footer {
+  color: #374151;
+}
+
 .baklava-control {
   background-color: var(--baklava-control-color-background);
   color: var(--baklava-control-color-foreground);
